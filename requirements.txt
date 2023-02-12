@@ -1,0 +1,12 @@
+pyyaml 
+tqdm 
+opencv-python 
+pandas 
+IPython 
+psutil 
+matplotlib 
+seaborn 
+tensorboard 
+torchreid
+setuptools==59.5.0
+https://github.com/KaiyangZhou/deep-person-reid/archive/master.zip
