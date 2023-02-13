@@ -86,12 +86,14 @@ Each annotation is described by one row inside the *.txt file per image (if no o
 ```bash
 helpers/
 ├── convert_coco_to_yolo.ipynb
-└── convert_video_to_images.ipynb
+├── convert_video_to_images.ipynb
+└── speedup_video.py
 
 0 directories, 2 files
 ```
 - You can use `convert_coco_to_yolo.ipynb` notebook to convert annotations from COCO to YOLO data format.
 - You can use `convert_video_to_images.ipynb` notebook to extract frames from the raw videos, so that the frames can be used with the proper annotations in training of the custom model.
+- You can use `speedup_video.py` script to speed up your video.
 
 ## Pipeline
 You can use the `pipeline.ipynb` notebook for the following:
