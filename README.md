@@ -7,7 +7,7 @@ Given 4 minutes of video for training and 2 minutes of video for validation and 
 
 Image below shows the output of pipeline.
 
-![Pipeline Output](./assets/sample.gif)
+![Pipeline Output](./assets/pipeline_output.gif)
 
 ## Data
 
