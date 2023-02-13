@@ -99,7 +99,7 @@ helpers/
 You can use the `pipeline.ipynb` notebook for the following:
 - Train & evaluate a custom YOLOv5 object detection model.
 - Make inferences on images/videos using the trained YOLOv5 model.
-- Make inferences on images/videos using the StrongSORT tracking algorithm with the trained YOLOv5 model.
+- Make inferences on videos using the StrongSORT tracking algorithm with the trained YOLOv5 model.
 - Optimize and export the trained YOLOv5 Model to other formats like TensorRT, ONNX runtime and a comparison of each 
 
 ## Results of YOLOv5 Object Detection Model
