@@ -89,7 +89,7 @@ helpers/
 ├── convert_video_to_images.ipynb
 └── speedup_video.py
 
-0 directories, 2 files
+0 directories, 3 files
 ```
 - You can use `convert_coco_to_yolo.ipynb` notebook to convert annotations from COCO to YOLO data format.
 - You can use `convert_video_to_images.ipynb` notebook to extract frames from the raw videos, so that the frames can be used with the proper annotations in training of the custom model.
