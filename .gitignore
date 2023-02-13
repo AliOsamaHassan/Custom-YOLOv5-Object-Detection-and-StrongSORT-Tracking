@@ -9,6 +9,9 @@ runs/
 # data folder
 data/
 
+# weights folder
+weights/
+
 # evaluation tools folder
 val_utils/
 
