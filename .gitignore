@@ -6,6 +6,9 @@ __pycache__/
 # experiment results
 runs/
 
+# data folder
+data/
+
 # evaluation tools folder
 val_utils/
 
