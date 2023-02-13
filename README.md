@@ -1,37 +1,51 @@
 # Welcome to Stroma's Machine Learning Engineering Challenge!
-> The objective of this challenge project is for you to showcase your capabilities in creating neural network pipelines.
+> The objective of this model is to predict and track the number of nuts and bolts that have fallen through the frame of the provided video snippets with high accuracy.
 
-Your result should be able to predict and track the number of nuts and bolts that have fallen through the frame of the provided video snippets with high accuracy.
-
-You are provided with 4 minutes of video for training and 2 minutes of video for validation and another 2 minutes of video for testing. The [video files](https://github.com/Stroma-Vision/machine-learning-challenge/releases/download/v0.1/challenge.zip) are synthetically generated 640x640 frames in 30FPS, each frame is accurately labeled in the [COCO](https://opencv.org/introduction-to-the-coco-dataset/) format with an additional field named `track_id`.
+Given 4 minutes of video for training and 2 minutes of video for validation and another 2 minutes of video for testing. The [video files](https://github.com/Stroma-Vision/machine-learning-challenge/releases/download/v0.1/challenge.zip) are synthetically generated 640x640 frames in 30FPS, each frame is accurately labeled in the [COCO](https://opencv.org/introduction-to-the-coco-dataset/) format with an additional field named `track_id`.
 
 > Please review the [Challenge Instructions](https://stromavision.notion.site/Stroma-Machine-Learning-Engineer-Technical-Interview-19f4573982b64791b14121faddb2f176) once again before proceeding.
 
-Image below shows the expected output of your model.
+Image below shows the output of pipeline.
 
-![Expected Output](./sample.gif)
+![Pipeline Output](./assets/sample.gif)
 
 ## Data
 
 **Folder Structure**
 ```bash
-challenge
-├── annotations
-│   ├── instances_test.json
-│   ├── instances_train.json
-│   └── instances_val.json
-└── images
+
+data/
+├── coco
+│   ├── annotations
+│   │	├── instances_test.json
+│   │	├── instances_train.json
+│   │	└── instances_val.json
+│   └── images
+│       ├── test
+│       │   └── test.mp4
+│       ├── train
+│       │   └── train.mp4
+│       └── val
+│           └── val.mp4
+└── yolo
     ├── test
-    │   └── test.mp4
+    │   ├── images
+    │   └── labels
     ├── train
-    │   └── train.mp4
-    └── val
-        └── val.mp4
-
-6 directories, 6 files
+    │   ├── images
+    │   └── labels
+    ├── val
+    │   ├── images
+    │   └── labels   
+    ├── class.names
+    └── custom.yaml
+    
+    
+19 directories
 ```
+### COCO Format
 
-Each annotation in COCO format contains a `track_id` section. With the following schema:
+Each annotation contains a `track_id` section. With the following schema:
 
 **JSON Schema**
 
@@ -50,22 +64,55 @@ Each annotation in COCO format contains a `track_id` section. With the following
     ...
 ]
 ```
-You may use any type of model of your preference, if your model requires any other annotation format, be careful when converting dataset to your format.
 
-## Results
+### YOLO Format
 
-You have the freedom to present your work in any format, and it will be evaluated based on the overall representation of your work. Utilizing visualizations is encouraged. However, keep in mind that your audience will be technical and familiar with the field, so a clear and concise explanation of your work is highly recommended.
+Each annotation is described by one row inside the *.txt file per image (if no objects in image, no *.txt file is required). The *.txt file specifications are:
 
-⚠️Remember that the performance of your model will be evaluated using a separate validation dataset.
+```
+<object-class> <x_center> <y_center> <width> <height>
+<object-class> <x_center> <y_center> <width> <height>
+...
+<object-class> <x_center> <y_center> <width> <height>
+```
+- One row per object
+- Each row has the following format : `<object-class> <x_center> <y_center> <width> <height>`
+- Box coordinates must be in normalized xywh format (from 0 - 1). If your boxes are in pixels, divide x_center and width by image width, and y_center and height by image height.
+- Class numbers are zero-indexed (start from 0).
 
-`Note: You may submit a Github repo with scripts or a google colab notebook with your work.`
+## Helpers (Data Preparation & Conversion)
 
-## Suggestions
+**Folder Structure**
+```bash
+helpers/
+├── convert_coco_to_yolo.ipynb
+└── convert_video_to_images.ipynb
 
-- Training a model from scratch may take a lot of time, you may use a `pretrained` model and fine-tune it to reach your goal.
+0 directories, 2 files
+```
+- You can use `convert_coco_to_yolo.ipynb` notebook to convert annotations from COCO to YOLO data format.
+- You can use `convert_video_to_images.ipynb` notebook to extract frames from the raw videos, so that the frames can be used with the proper annotations in training of the custom model.
 
-- Optimize the dataset for the available hardware resources by either utilizing a `subset` to iterate faster or use `augmentation techniques` to improve your model's accuracy, as appropriate.
+## Pipeline
+You can use the `pipeline.ipynb` notebook for the following:
+- Train & evaluate a custom YOLOv5 object detection model.
+- Make inferences on images/videos using the trained YOLOv5 model.
+- Make inferences on images/videos using the StrongSORT tracking algorithm with the trained YOLOv5 model.
+- Optimize and export the trained YOLOv5 Model to other formats like TensorRT, ONNX runtime and a comparison of each 
 
-- Make sure to document your work, you may provide an explanatory `README.md` file or you may use `Jupyter Notebook`'s markdown cells to explain your findings.
+## Results of YOLOv5 Object Detection Model
+- Evaluation of PyTorch version 
 
-- Please ensure to `document` any difficulties encountered and the corresponding resolution methods adopted during the completion of this challenge as they are of utmost relevance to us.
+![Evaluation of PyTorch Model](./assets/pt_model_eval.png)
+
+
+- Evaluation of ONNX Runtime version 
+
+![Evaluation of ONNX Model](./assets/onnx_model_eval.png)
+
+
+- Evaluation of TensorRT version 
+
+![Evaluation of TensorRT Model](./assets/TensorRT_model_eval.png)
+
+`Note: The above results represent the performance of the inference model on the validation dataset.`
