@@ -1,9 +1,7 @@
-# Welcome to Stroma's Machine Learning Engineering Challenge!
-> The objective of this model is to predict and track the number of nuts and bolts that have fallen through the frame of the provided video snippets with high accuracy.
+# Custom-YOLOv5-Object-Detection-and-StrongSORT-Tracking
+> The objective of this project is to create a pipeline that can predict and track the number of nuts and bolts that have fallen through the frame of the provided video snippets with high accuracy using YOLOv5 and StrongSORT.
 
 Given 4 minutes of video for training and 2 minutes of video for validation and another 2 minutes of video for testing. The [video files](https://github.com/Stroma-Vision/machine-learning-challenge/releases/download/v0.1/challenge.zip) are synthetically generated 640x640 frames in 30FPS, each frame is accurately labeled in the [COCO](https://opencv.org/introduction-to-the-coco-dataset/) format with an additional field named `track_id`.
-
-> Please review the [Challenge Instructions](https://stromavision.notion.site/Stroma-Machine-Learning-Engineer-Technical-Interview-19f4573982b64791b14121faddb2f176) once again before proceeding.
 
 Image below shows the output of pipeline.
 
